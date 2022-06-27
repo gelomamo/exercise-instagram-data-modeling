@@ -25,11 +25,14 @@ class Comment(Base):
     comment_text = Column(String(250), nullable=False)
     Usuario_id = Column(Integer, ForeignKey('Usuarios.id'))
     Post_id = Column(Integer, ForeignKey('Post.id'))
+    usuario = relationship(Usuarios)
+    post = relationship(Post)
 
 class Post(Base):
     __tablename__ = 'Post'
     id = Column(Integer, primary_key=True)
     Usuario_id = Column(Integer, ForeignKey('Usuarios.id'))
+    usuario = relationship(Usuarios)
 
 class Media(Base):
     __tablename__ = 'Media'
@@ -37,11 +40,14 @@ class Media(Base):
     type = Column(Number, nullable=False)
     url = Column(String(250), nullable=False)
     Post_id = Column(Integer, ForeignKey('Post.id'))
+    post = relationship(Post)
 
 class Follower(Base):
     __tablename__ = 'Post'
     user_from_id = Column(Integer, ForeignKey('Usuarios.id'))
     user_to_id = Column(Integer, ForeignKey('Usuarios.id'))
+    usuario_from = relationship(Usuarios)
+    usuario_to = relationship(Usuarios)
 
     def to_dict(self):
         return {}
